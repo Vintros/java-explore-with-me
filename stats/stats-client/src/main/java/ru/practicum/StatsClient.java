@@ -19,7 +19,7 @@ import java.util.Map;
 public class StatsClient {
 
     private final RestTemplate rest;
-    String SERVER_URL = "http://stats-server:9090";
+    private final String SERVER_URL = "http://stats-server:9090";
 
     @Autowired
     public StatsClient(RestTemplateBuilder builder) {
