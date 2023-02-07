@@ -19,13 +19,13 @@ import java.util.Map;
 public class StatsClient {
 
     private final RestTemplate rest;
-    private final String URL = "http://stats-server:9090";
+    private final String url = "http://stats-server:9090";
 
     @Autowired
     public StatsClient(RestTemplateBuilder builder) {
 
         this.rest = builder
-                .uriTemplateHandler(new DefaultUriBuilderFactory(URL))
+                .uriTemplateHandler(new DefaultUriBuilderFactory(url))
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                 .build();
     }
