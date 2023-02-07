@@ -16,7 +16,7 @@ import java.util.List;
 public class StatsServiceImpl implements StatsService {
 
     private final StatsRepository repository;
-    DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public void saveHit(RequestDto requestDto) {
@@ -25,8 +25,8 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<ResponseDto> getStats(String start, String end, List<String> uris, boolean unique) {
-        LocalDateTime startTime = LocalDateTime.parse(start, DTF);
-        LocalDateTime endTime = LocalDateTime.parse(end, DTF);
+        LocalDateTime startTime = LocalDateTime.parse(start, dtf);
+        LocalDateTime endTime = LocalDateTime.parse(end, dtf);
         if (uris.isEmpty()) {
             return new ArrayList<>();
         }
