@@ -1,7 +1,7 @@
 package ru.practicum.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
@@ -12,10 +12,10 @@ import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Data
 @Table(schema = "public",name = "endpoint_hit")
-public class RequestDto {
+public class RequestHit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class RequestDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        RequestDto that = (RequestDto) o;
+        RequestHit that = (RequestHit) o;
         return id != null && Objects.equals(id, that.id);
     }
 

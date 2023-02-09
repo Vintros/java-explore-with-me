@@ -2,8 +2,10 @@ package ru.practicum.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.model.RequestDto;
-import ru.practicum.model.ResponseDto;
+import ru.practicum.dto.RequestHitDto;
+import ru.practicum.dto.ResponseHitDto;
+import ru.practicum.mapper.Mapper;
+import ru.practicum.model.ResponseHit;
 import ru.practicum.storage.StatsRepository;
 
 import java.time.LocalDateTime;
@@ -16,24 +18,27 @@ import java.util.List;
 public class StatsServiceImpl implements StatsService {
 
     private final StatsRepository repository;
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final Mapper mapper;
+    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    public void saveHit(RequestDto requestDto) {
-        repository.save(requestDto);
+    public void saveHit(RequestHitDto requestHitDto) {
+        repository.save(mapper.convertToRequestHit(requestHitDto));
     }
 
     @Override
-    public List<ResponseDto> getStats(String start, String end, List<String> uris, boolean unique) {
+    public List<ResponseHitDto> getStats(String start, String end, List<String> uris, boolean unique) {
         LocalDateTime startTime = LocalDateTime.parse(start, dtf);
         LocalDateTime endTime = LocalDateTime.parse(end, dtf);
+        List<ResponseHit> hits;
         if (uris.isEmpty()) {
             return new ArrayList<>();
         }
         if (unique) {
-            return repository.getStatsUnique(startTime, endTime, uris);
+            hits = repository.getStatsUnique(startTime, endTime, uris);
         } else {
-            return repository.getStats(startTime, endTime, uris);
+            hits = repository.getStats(startTime, endTime, uris);
         }
+        return mapper.convertAllToResponseHitDto(hits);
     }
 }

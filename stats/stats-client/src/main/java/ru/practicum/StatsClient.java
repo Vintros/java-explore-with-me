@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import ru.practicum.model.RequestDto;
+import ru.practicum.dto.RequestHitDto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,8 +30,8 @@ public class StatsClient {
                 .build();
     }
 
-    public ResponseEntity<Object> saveHit(RequestDto requestDto) {
-        return makeAndSendRequest(HttpMethod.POST, "/hit", null, requestDto);
+    public ResponseEntity<Object> saveHit(RequestHitDto requestHitDto) {
+        return makeAndSendRequest(HttpMethod.POST, "/hit", null, requestHitDto);
     }
 
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, boolean unique) {
