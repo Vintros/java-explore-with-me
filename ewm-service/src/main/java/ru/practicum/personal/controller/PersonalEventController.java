@@ -1,6 +1,7 @@
 package ru.practicum.personal.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users/{userId}/events")
 @RequiredArgsConstructor
+@Slf4j
 public class PersonalEventController {
 
     private final PersonalEventService service;
@@ -29,6 +31,7 @@ public class PersonalEventController {
         if (request.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new RequestNotValidException("Request not valid");
         }
+        log.info("Create event: {} by userId: {}", request, userId);
         return service.createEvent(userId, request);
     }
 
@@ -39,6 +42,7 @@ public class PersonalEventController {
         if (request.getEventDate() != null && request.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new RequestNotValidException("Request not valid");
         }
+        log.info("Update event {} with id: {} by userId: {}", request, eventId, userId);
         return service.updateEvent(userId, eventId, request);
     }
 
@@ -46,6 +50,7 @@ public class PersonalEventController {
     public EventRequestStatusUpdateResult considerationEventRequests(@PathVariable Long userId,
                                                                      @PathVariable Long eventId,
                                                                      @Valid @RequestBody EventRequestStatusUpdateRequest request) {
+        log.info("Considerate event id {} requests by userId {} to: {}", eventId, userId, request);
         return service.considerationEventRequests(userId, eventId, request);
     }
 
@@ -54,16 +59,19 @@ public class PersonalEventController {
                                                  @RequestParam(defaultValue = "10") Integer size) {
         Sort sort = Sort.by("id").ascending();
         Pageable pageable = FromSizeRequest.of(from, size, sort);
+        log.info("Get events by userId: {}", userId);
         return service.getEventsByUserId(userId, pageable);
     }
 
     @GetMapping("/{eventId}")
     public EventFullDto getEventById(@PathVariable Long userId, @PathVariable Long eventId, HttpServletRequest request) {
+        log.info("Get event by id {} by userId: {}", eventId, userId);
         return service.getEventById(userId, eventId, request);
     }
 
     @GetMapping("{eventId}/requests")
     public List<ParticipationRequestDto> getEventRequestsById(@PathVariable Long userId, @PathVariable Long eventId) {
+        log.info("Get event requests by eventId {} by userId: {}", eventId, userId);
         return service.getEventRequestsById(userId, eventId);
     }
 }

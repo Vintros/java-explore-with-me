@@ -1,6 +1,7 @@
 package ru.practicum.admin.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/events")
+@Slf4j
 public class AdmEventController {
 
     private final AdmEventService service;
@@ -30,6 +32,7 @@ public class AdmEventController {
         if (request.getEventDate() != null && request.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
             throw new RequestNotValidException("Request not valid");
         }
+        log.info("Update event by id: {}, update: {}", eventId, request);
         return service.updateEvent(eventId, request);
     }
 
@@ -52,6 +55,7 @@ public class AdmEventController {
             end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
         RequestParams params = new RequestParams(users, states, categories, start, end);
+        log.info("Get events by params: {}", params);
         return service.getEvents(params, pageable);
     }
 

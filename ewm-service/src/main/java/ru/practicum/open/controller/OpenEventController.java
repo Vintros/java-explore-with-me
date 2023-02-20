@@ -1,6 +1,7 @@
 package ru.practicum.open.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.common.dto.EventFullDto;
 import ru.practicum.common.dto.EventShortDto;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/events")
 @RequiredArgsConstructor
+@Slf4j
 public class OpenEventController {
 
     private final OpenEventService service;
@@ -40,11 +42,13 @@ public class OpenEventController {
             end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
         EventRequestParams params = new EventRequestParams(text, categories, paid, start, end, onlyAvailable, sort, from, size);
+        log.info("Get events by params: {}", params);
         return service.getEvents(params, request);
     }
 
     @GetMapping("/{id}")
-     public EventFullDto getEventById(@PathVariable Long id, HttpServletRequest request) {
+    public EventFullDto getEventById(@PathVariable Long id, HttpServletRequest request) {
+        log.info("Get events by id {}", id);
         return service.getEventById(id, request);
     }
 

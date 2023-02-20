@@ -1,6 +1,7 @@
 package ru.practicum.admin.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/users")
 @RequiredArgsConstructor
+@Slf4j
 public class AdmUserController {
 
     private final AdmUserService service;
@@ -22,6 +24,7 @@ public class AdmUserController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody UserDto userDto) {
+        log.info("Create user {}", userDto);
         return service.createUser(userDto);
     }
 
@@ -31,12 +34,14 @@ public class AdmUserController {
                                   @RequestParam(defaultValue = "10") Integer size) {
         Sort sort = Sort.by("id").ascending();
         Pageable pageable = FromSizeRequest.of(from, size, sort);
+        log.info("Get user by ids: {}", ids);
         return service.getUsers(ids, pageable);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long id) {
+        log.info("Delete user by id: {}", id);
         service.deleteUser(id);
     }
 

@@ -1,6 +1,7 @@
 package ru.practicum.open.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/compilations")
 @RequiredArgsConstructor
+@Slf4j
 public class OpenCompilationController {
 
     private final OpenCompilationService service;
@@ -23,12 +25,14 @@ public class OpenCompilationController {
                                                 @RequestParam(defaultValue = "10") Integer size) {
         Sort sort = Sort.by("id").ascending();
         Pageable pageable = FromSizeRequest.of(from, size, sort);
+        log.info("Get compilations");
         return service.getCompilations(pinned, pageable);
     }
 
     @GetMapping("/{compId}")
     public CompilationDto getCompilationById(@PathVariable Long compId) {
-        return  service.getCompilationById(compId);
+        log.info("Get compilations by id {}", compId);
+        return service.getCompilationById(compId);
     }
 
 }
