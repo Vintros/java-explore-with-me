@@ -24,7 +24,7 @@ public class StatsController {
     @GetMapping("/stats")
     public List<ResponseHitDto> getStats(@RequestParam String start, @RequestParam String end,
                                          @RequestParam(defaultValue = "") List<String> uris,
-                                         @RequestParam(defaultValue = "false") boolean unique) {
+                                         @RequestParam(defaultValue = "false", required = false) boolean unique) {
         return service.getStats(start, end, uris, unique);
     }
 
