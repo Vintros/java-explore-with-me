@@ -28,6 +28,6 @@ public class Compilation {
     private String title;
 
     @OneToMany
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "compilation_id")
     private List<Event> events;
 }
