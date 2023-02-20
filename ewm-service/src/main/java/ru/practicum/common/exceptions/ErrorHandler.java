@@ -15,7 +15,7 @@ public class ErrorHandler {
     @ExceptionHandler({EntityNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorResponse entityNotFound(final RuntimeException e) {
-        return new ErrorResponse("NOT_FOUND" , e.getMessage());
+        return new ErrorResponse("NOT_FOUND", e.getMessage());
     }
 
     @ExceptionHandler({EntityNoAccessException.class, RequestNotValidException.class})
@@ -34,7 +34,7 @@ public class ErrorHandler {
     @ExceptionHandler({StatsClientResponseException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse statsError(final RuntimeException e) {
-        return new ErrorResponse("INTERNAL_SERVER_ERROR" , e.getMessage());
+        return new ErrorResponse("INTERNAL_SERVER_ERROR", e.getMessage());
     }
 
 }

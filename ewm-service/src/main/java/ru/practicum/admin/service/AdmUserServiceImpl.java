@@ -21,7 +21,7 @@ public class AdmUserServiceImpl implements AdmUserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        if(repository.existsByEmail(userDto.getEmail())) {
+        if (repository.existsByEmail(userDto.getEmail())) {
             throw new EntityNoAccessException("Email must be unique");
         }
         User createdUser = repository.save(mapper.convertToUser(userDto));
