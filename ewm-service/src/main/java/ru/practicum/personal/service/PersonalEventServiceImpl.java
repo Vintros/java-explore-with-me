@@ -65,7 +65,7 @@ public class PersonalEventServiceImpl implements PersonalEventService {
             throw new EntityNoAccessException("you are not initiator");
         }
         ResponseEntity<Object> stats = statsClient.getStats(
-                event.getCreatedOn().toString(),
+                event.getCreatedOn().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 List.of(request.getRequestURI()),
                 false);

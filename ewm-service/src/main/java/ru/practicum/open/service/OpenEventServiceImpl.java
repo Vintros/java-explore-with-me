@@ -46,7 +46,7 @@ public class OpenEventServiceImpl implements OpenEventService {
             throw new EntityNotFoundException("Event not found");
         }
         ResponseEntity<Object> stats = statsClient.getStats(
-                event.getCreatedOn().toString(),
+                event.getCreatedOn().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 List.of(request.getRequestURI()),
                 false);
