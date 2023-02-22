@@ -28,10 +28,7 @@ import ru.practicum.personal.storage.PersonalRequestRepository;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static ru.practicum.common.util.State.*;
@@ -68,7 +65,7 @@ public class PersonalEventServiceImpl implements PersonalEventService {
             throw new EntityNoAccessException("you are not initiator");
         }
         ResponseEntity<Object> stats = statsClient.getStats(
-                LocalDateTime.now().minusYears(100).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                event.getCreatedOn().toString(),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 List.of(request.getRequestURI()),
                 false);
@@ -224,8 +221,13 @@ public class PersonalEventServiceImpl implements PersonalEventService {
         List<String> uris = events.stream()
                 .map((e) -> "/events/" + e.getId())
                 .collect(Collectors.toList());
+        LocalDateTime start = events.stream()
+                .map(Event::getCreatedOn)
+                .sorted()
+                .findFirst()
+                .orElseThrow(() -> new  EntityNotFoundException("event don't have creation time"));
         ResponseEntity<Object> stats = statsClient.getStats(
-                LocalDateTime.now().minusYears(100).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 uris,
                 false);

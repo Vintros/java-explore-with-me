@@ -11,6 +11,7 @@ import ru.practicum.common.util.State;
 import ru.practicum.common.util.StateRequest;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,14 +25,14 @@ public class EventMapper {
                 .annotation(eventDtoRequest.getAnnotation())
                 .category(category)
                 .requests(new ArrayList<>())
-                .createdOn(LocalDateTime.now())
+                .createdOn(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .description(eventDtoRequest.getDescription())
                 .eventDate(eventDtoRequest.getEventDate())
                 .initiator(user)
                 .location(eventDtoRequest.getLocation())
                 .paid(eventDtoRequest.getPaid())
                 .participantLimit(eventDtoRequest.getParticipantLimit())
-                .publishedOn(LocalDateTime.now())
+                .publishedOn(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .requestModeration(eventDtoRequest.getRequestModeration())
                 .state(State.PENDING)
                 .title(eventDtoRequest.getTitle())

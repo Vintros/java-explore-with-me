@@ -46,7 +46,7 @@ public class OpenEventServiceImpl implements OpenEventService {
             throw new EntityNotFoundException("Event not found");
         }
         ResponseEntity<Object> stats = statsClient.getStats(
-                LocalDateTime.now().minusYears(100).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                event.getCreatedOn().toString(),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 List.of(request.getRequestURI()),
                 false);
@@ -163,8 +163,13 @@ public class OpenEventServiceImpl implements OpenEventService {
         List<String> uris = events.stream()
                 .map((e) -> "/events/" + e.getId())
                 .collect(Collectors.toList());
+        LocalDateTime start = events.stream()
+                .map(Event::getCreatedOn)
+                .sorted()
+                .findFirst()
+                .orElseThrow(() -> new  EntityNotFoundException("event don't have creation time"));
         ResponseEntity<Object> stats = statsClient.getStats(
-                LocalDateTime.now().minusYears(100).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 uris,
                 false);
