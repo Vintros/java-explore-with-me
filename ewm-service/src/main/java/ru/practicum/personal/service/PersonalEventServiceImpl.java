@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsClient;
 import ru.practicum.admin.storage.AdmCategoryRepository;
+import ru.practicum.admin.storage.AdmLocationRepository;
 import ru.practicum.admin.storage.AdmUserRepository;
 import ru.practicum.common.dto.*;
 import ru.practicum.common.exceptions.EntityNoAccessException;
@@ -42,6 +44,7 @@ public class PersonalEventServiceImpl implements PersonalEventService {
     private final AdmUserRepository userRepository;
     private final AdmCategoryRepository categoryRepository;
     private final PersonalRequestRepository requestRepository;
+    private final AdmLocationRepository locationRepository;
     private final EventMapper eventMapper;
     private final RequestMapper requestMapper;
     private final StatsClient statsClient;
@@ -90,6 +93,7 @@ public class PersonalEventServiceImpl implements PersonalEventService {
     }
 
     @Override
+    @Transactional
     public EventFullDto updateEvent(Long userId, Long eventId, UpdateEventDtoRequest request) {
         Event event = eventRepository.findById(eventId).orElseThrow(
                 () -> new EntityNotFoundException("event not found"));
@@ -200,6 +204,7 @@ public class PersonalEventServiceImpl implements PersonalEventService {
         }
         if (request.getLocation() != null) {
             event.setLocation(request.getLocation());
+            locationRepository.save(request.getLocation());
         }
         if (request.getPaid() != null) {
             event.setPaid(request.getPaid());

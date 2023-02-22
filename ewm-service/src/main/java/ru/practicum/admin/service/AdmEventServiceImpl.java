@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.storage.AdmCategoryRepository;
 import ru.practicum.admin.storage.AdmEventRepository;
 import ru.practicum.admin.storage.AdmLocationRepository;
@@ -32,6 +33,7 @@ public class AdmEventServiceImpl implements AdmEventService {
 
 
     @Override
+    @Transactional
     public EventFullDto updateEvent(Long eventId, UpdateEventDtoRequest request) {
         Event event = eventRepository.findById(eventId).orElseThrow(
                 () -> new EntityNotFoundException("event not found"));

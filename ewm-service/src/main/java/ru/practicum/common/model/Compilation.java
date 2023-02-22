@@ -24,7 +24,7 @@ public class Compilation {
     @Column(nullable = false)
     private Boolean pinned;
 
-    @Column(nullable = false)
+    @Column(length = 200, nullable = false)
     private String title;
 
     @OneToMany

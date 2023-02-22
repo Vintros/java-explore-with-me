@@ -33,6 +33,7 @@ public class EventRequest {
     private User requester;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(length = 50, nullable = false)
     private StateRequest status;
 
 }

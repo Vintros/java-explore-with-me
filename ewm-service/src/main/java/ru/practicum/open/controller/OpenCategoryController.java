@@ -33,7 +33,7 @@ public class OpenCategoryController {
     @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public CategoryDto getCategoryById(@PathVariable Long id) {
-        log.info("Get category bu id {}", id);
+        log.info("Get category by id {}", id);
         return service.getCategoryById(id);
     }
 

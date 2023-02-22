@@ -1,6 +1,7 @@
 package ru.practicum.common.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -40,14 +41,14 @@ public class Event {
     private List<EventRequest> requests;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "created_on")
+    @Column(name = "created_on", nullable = false)
     private LocalDateTime createdOn;
 
     @Column(name = "description", length = 7000, nullable = false)
     private String description;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "event_date")
+    @Column(name = "event_date", nullable = false)
     private LocalDateTime eventDate;
 
     @ManyToOne
@@ -56,22 +57,24 @@ public class Event {
 
     @OneToOne
     @Cascade({CascadeType.REMOVE, CascadeType.PERSIST})
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
+    @Column(nullable = false)
     private Boolean paid;
 
-    @Column(name = "participant_limit")
+    @Column(name = "participant_limit", nullable = false)
     private Integer participantLimit;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "published_on")
+    @Column(name = "published_on", nullable = false)
     private LocalDateTime publishedOn;
 
-    @Column(name = "request_moderation")
+    @Column(name = "request_moderation", nullable = false)
     private Boolean requestModeration;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(length = 50, nullable = false)
     private State state;
 
     @Column(length = 120, nullable = false)
@@ -79,6 +82,10 @@ public class Event {
 
     @Transient
     private Long views;
+
+    @OneToMany(mappedBy = "event")
+    @JsonBackReference
+    private List<Comment> comments;
 
     @Override
     public boolean equals(Object o) {

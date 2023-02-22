@@ -2,6 +2,7 @@ package ru.practicum.admin.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.admin.storage.AdmCompilationRepository;
 import ru.practicum.admin.storage.AdmEventRepository;
 import ru.practicum.common.dto.CompilationDto;
@@ -43,6 +44,7 @@ public class AdmCompilationServiceImpl implements AdmCompilationService {
     }
 
     @Override
+    @Transactional
     public CompilationDto updateCompilation(Long compId, UpdateCompilationDto updateCompilationDto) {
         Compilation compilation = admCompilationRepository.findById(compId)
                 .orElseThrow(() -> new EntityNotFoundException("Compilation not founded"));
