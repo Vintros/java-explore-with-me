@@ -1,7 +1,5 @@
 package ru.practicum.common.model;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -82,10 +80,6 @@ public class Event {
 
     @Transient
     private Long views;
-
-    @OneToMany(mappedBy = "event")
-    @JsonBackReference
-    private List<Comment> comments;
 
     @Override
     public boolean equals(Object o) {
