@@ -42,7 +42,8 @@ public class StatsClient {
         for (String uri : uris) {
             parameters.put(uri, uri);
         }
-        return makeAndSendRequest(HttpMethod.GET, "/stats", parameters, null);
+        return makeAndSendRequest(
+                HttpMethod.GET, "/stats?start={start}&end={end}&unique={unique}", parameters, null);
     }
 
     private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path,
