@@ -1018,7 +1018,7 @@
 								},
 								{
 									"key": "commentId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего комментария"
 								}
 							]
@@ -2092,7 +2092,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/events/comments?commentsId= &action=TO_DELETE",
+							"raw": "{{baseUrl}}/admin/events/comments?commentsId=&action=TO_DELETE",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -2104,7 +2104,7 @@
 							"query": [
 								{
 									"key": "commentsId",
-									"value": " "
+									"value": ""
 								},
 								{
 									"key": "action",
@@ -2818,7 +2818,7 @@
 									"                header: { \"Content-Type\": \"application/json\" },\r",
 									"            };\r",
 									"        const req2 = {\r",
-									"                url: \"http://localhost:8080/users/\" + user.id + \"/events/\" + event.id + \"/comments\" + comment.id,\r",
+									"                url: \"http://localhost:8080/users/\" + user.id + \"/events/\" + event.id + \"/comments\" + comment2.id,\r",
 									"                method: \"PATCH\",\r",
 									"                body: body == null ? \"\" : JSON.stringify(body),\r",
 									"                header: { \"Content-Type\": \"application/json\" },\r",
