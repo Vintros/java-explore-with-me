@@ -20,8 +20,8 @@ public class PersonalCommentController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public CommentDto createComment(@PathVariable Long userId,
-                                    @PathVariable Long eventId,
+    public CommentDto createComment(@PathVariable long userId,
+                                    @PathVariable long eventId,
                                     @Valid @RequestBody CommentDtoRequest request) {
         log.info("Create comment to eventId {} by userId: {}", eventId, userId);
         return service.createComment(userId, eventId, request);
@@ -29,9 +29,9 @@ public class PersonalCommentController {
 
     @PatchMapping("/{commentId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CommentDto updateComment(@PathVariable Long userId,
-                                    @PathVariable Long eventId,
-                                    @PathVariable Long commentId,
+    public CommentDto updateComment(@PathVariable long userId,
+                                    @PathVariable long eventId,
+                                    @PathVariable long commentId,
                                     @Valid @RequestBody CommentDtoRequest request) {
         log.info("Update comment with id {} on event {} by userId: {}", commentId, eventId, userId);
         return service.updateComment(userId, eventId, commentId, request);
@@ -39,18 +39,18 @@ public class PersonalCommentController {
 
     @PatchMapping("/{commentId}/check")
     @ResponseStatus(value = HttpStatus.OK)
-    public void sendCommentToCheckByEventOwner(@PathVariable Long userId,
-                                               @PathVariable Long eventId,
-                                               @PathVariable Long commentId) {
+    public void sendCommentToCheckByEventOwner(@PathVariable long userId,
+                                               @PathVariable long eventId,
+                                               @PathVariable long commentId) {
         log.info("Send comment with id {} on event {} to check", commentId, eventId);
         service.sendCommentToCheckByEventOwner(userId, eventId, commentId);
     }
 
     @DeleteMapping("/{commentId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteComment(@PathVariable Long userId,
-                              @PathVariable Long eventId,
-                              @PathVariable Long commentId) {
+    public void deleteComment(@PathVariable long userId,
+                              @PathVariable long eventId,
+                              @PathVariable long commentId) {
         log.info("Delete comment with id {} on event {} by userId {}", commentId, eventId, userId);
         service.deleteComment(userId, eventId, commentId);
     }
