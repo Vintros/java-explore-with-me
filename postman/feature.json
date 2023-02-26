@@ -189,12 +189,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "{{uid}}",
-									"description": "(Required) id текущего пользователя"
+									"value": " {{uid}}"
 								},
 								{
 									"key": "eventId",
-									"value": null
+									"value": " "
 								}
 							]
 						}
@@ -381,10 +380,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
 							"host": [
@@ -524,7 +519,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего пользователя"
 								},
 								{
@@ -619,10 +614,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
 							"host": [
@@ -893,7 +884,7 @@
 								},
 								{
 									"key": "eventId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего события"
 								},
 								{
@@ -1140,7 +1131,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего пользователя"
 								},
 								{
@@ -1268,7 +1259,7 @@
 								},
 								{
 									"key": "eventId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего события"
 								},
 								{
@@ -1396,7 +1387,7 @@
 								},
 								{
 									"key": "commentId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего комментария"
 								}
 							]
@@ -1508,7 +1499,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего пользователя"
 								},
 								{
@@ -1635,7 +1626,7 @@
 								},
 								{
 									"key": "eventId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего события"
 								},
 								{
@@ -1762,7 +1753,7 @@
 								},
 								{
 									"key": "commentId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего комментария"
 								}
 							]
@@ -1874,7 +1865,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего события"
 								},
 								{
@@ -1996,7 +1987,7 @@
 								},
 								{
 									"key": "commentId",
-									"value": "",
+									"value": " ",
 									"description": "(Required) id текущего комментария"
 								}
 							]
@@ -2101,7 +2092,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{baseUrl}}/admin/events/comments?commentsId=&action=TO_DELETE",
+							"raw": "{{baseUrl}}/admin/events/comments?commentsId= &action=TO_DELETE",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -2113,7 +2104,7 @@
 							"query": [
 								{
 									"key": "commentsId",
-									"value": ""
+									"value": " "
 								},
 								{
 									"key": "action",

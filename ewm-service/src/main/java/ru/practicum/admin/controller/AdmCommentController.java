@@ -27,7 +27,7 @@ public class AdmCommentController {
 
     @GetMapping("/comments")
     public List<CommentFullDto> getComments(
-            @RequestParam(required = false) Long user,
+            @RequestParam(required = false) long user,
             @RequestParam(required = false) StateComment state,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeStart,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
@@ -49,8 +49,8 @@ public class AdmCommentController {
 
     @DeleteMapping("/{eventId}/comments/{commentId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteComment(@PathVariable Long eventId,
-                              @PathVariable Long commentId) {
+    public void deleteComment(@PathVariable long eventId,
+                              @PathVariable long commentId) {
         log.info("Delete comment with id {} on event {}", commentId, eventId);
         service.deleteComment(eventId, commentId);
     }
