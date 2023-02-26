@@ -5707,7 +5707,7 @@
 					"    }",
 					"",
 					"    async findComment(uid, verbose=null) {",
-					"        return this.get('/admin/events/comments?user=' + uid, \"Ошибка при поиске комментария по id\", verbose);",
+					"        return this.get('/admin/events/comments?user=' + uid, null, \"Ошибка при поиске комментария по id\", verbose);",
 					"    }",
 					"",
 					"    async findEvent(eid, verbose=null) {",
