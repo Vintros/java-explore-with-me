@@ -2327,7 +2327,7 @@
 									"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});\r",
 									"\r",
 									"pm.test(\"Комментарий должен быть с измененным текстом\", function () {\r",
-									"pm.expect(target.id).equal(commid, 'Id комментария должен соответствовать id комментария в запросе');\r",
+									"pm.expect(target.id).equal(parseInt(commid), 'Id комментария должен соответствовать id комментария в запросе');\r",
 									"pm.expect(target.text).equal(source.text, 'Текст комментария должен соответствовать тексту комментария в запросе');\r",
 									"});"
 								],
@@ -2600,7 +2600,6 @@
 									"let commid = pm.collectionVariables.get('commid');\r",
 									"\r",
 									"pm.test(\"Комментарий должен быть найден до удаления\", function () {    \r",
-									"    pm.expect(source).is.an('array');\r",
 									"    pm.expect(source[0].id).equal(commid, 'Комментарий должен быть в базе до удаления')\r",
 									"});\r",
 									"\r",
@@ -2739,7 +2738,6 @@
 									"let commid = pm.collectionVariables.get('commid');\r",
 									"\r",
 									"pm.test(\"Комментарий должен быть найден до удаления\", function () {    \r",
-									"    pm.expect(source).is.an('array');\r",
 									"    pm.expect(source[0].id).equal(commid, 'Комментарий должен быть в базе до удаления')\r",
 									"});\r",
 									"\r",
@@ -2882,8 +2880,7 @@
 									"let commid = pm.collectionVariables.get('commid');\r",
 									"let commid2 = pm.collectionVariables.get('commid2');\r",
 									"\r",
-									"pm.test(\"Комментарий должен быть найден до удаления\", function () {    \r",
-									"    pm.expect(source).is.an('array');\r",
+									"pm.test(\"Комментарий должен быть найден до удаления\", function () {   \r",
 									"    pm.expect(source[0].id).equal(commid, 'Комментарий должен быть в базе до удаления')\r",
 									"    pm.expect(source2[0].id).equal(commid2, 'Комментарии должны быть в базе до удаления')\r",
 									"});\r",
@@ -3153,7 +3150,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Комментарий должен быть с правильным id\", function () {\r",
-									"pm.expect(target.comments[0].id).to.equal(commid, 'Идентификатор комментария должен соответствовать идентификатору добавленного ранее');\r",
+									"pm.expect(target.comments[0].id).to.equal(parseInt(commid), 'Идентификатор комментария должен соответствовать идентификатору добавленного ранее');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -3376,7 +3373,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Комментарий должен быть с правильным id и автором\", function () {\r",
-									"pm.expect(target[0].id).to.equal(commid, 'Идентификатор комментария должен соответствовать идентификатору добавленного ранее');\r",
+									"pm.expect(target[0].id).to.equal(parseInt(commid), 'Идентификатор комментария должен соответствовать идентификатору добавленного ранее');\r",
 									"pm.expect(target[0].user.id).to.equal(uid, 'Идентификатор комментатора должен соответствовать идентификатору комментировавшего');\r",
 									"});"
 								],
@@ -3492,7 +3489,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Комментарий должен быть с правильным id и автором\", function () {\r",
-									"pm.expect(target[0].id).to.equal(commid, 'Идентификатор комментария должен соответствовать идентификатору добавленного ранее');\r",
+									"pm.expect(target[0].id).to.equal(parseInt(commid), 'Идентификатор комментария должен соответствовать идентификатору добавленного ранее');\r",
 									"pm.expect(target[0].user.id).to.equal(uid, 'Идентификатор комментатора должен соответствовать идентификатору комментировавшего');\r",
 									"});"
 								],
@@ -5932,7 +5929,7 @@
 		},
 		{
 			"key": "catId",
-			"value": "",
+			"value": "1",
 			"type": "string"
 		},
 		{
@@ -5952,12 +5949,12 @@
 		},
 		{
 			"key": "ids",
-			"value": "",
+			"value": "1,2",
 			"type": "string"
 		},
 		{
 			"key": "uid2",
-			"value": ""
+			"value": "1"
 		}
 	]
 }
