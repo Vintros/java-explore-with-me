@@ -1,5 +1,6 @@
 package ru.practicum.common.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.common.dto.EventDtoRequest;
 import ru.practicum.common.dto.EventFullDto;
@@ -17,7 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class EventMapper {
+
+    private final CommentMapper commentMapper;
 
     public Event convertToEvent(User user, Category category, EventDtoRequest eventDtoRequest) {
         return Event.builder()
@@ -36,6 +40,7 @@ public class EventMapper {
                 .requestModeration(eventDtoRequest.getRequestModeration())
                 .state(State.PENDING)
                 .title(eventDtoRequest.getTitle())
+                .comments(new ArrayList<>())
                 .build();
     }
 
@@ -59,6 +64,7 @@ public class EventMapper {
                 .state(event.getState())
                 .title(event.getTitle())
                 .views(event.getViews())
+                .comments(commentMapper.convertAllToCommentDto(event.getComments()))
                 .build();
     }
 

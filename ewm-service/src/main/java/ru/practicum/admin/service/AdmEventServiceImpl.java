@@ -16,7 +16,7 @@ import ru.practicum.common.mapper.EventMapper;
 import ru.practicum.common.model.Category;
 import ru.practicum.common.model.Event;
 import ru.practicum.common.model.QEvent;
-import ru.practicum.common.util.RequestParams;
+import ru.practicum.common.util.RequestParamsForEvents;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class AdmEventServiceImpl implements AdmEventService {
     }
 
     @Override
-    public List<EventFullDto> getEvents(RequestParams params, Pageable pageable) {
+    public List<EventFullDto> getEvents(RequestParamsForEvents params, Pageable pageable) {
         QEvent qEvent = QEvent.event;
         BooleanExpression predicate = qEvent.isNotNull();
 

@@ -11,7 +11,7 @@ import ru.practicum.common.dto.EventFullDto;
 import ru.practicum.common.dto.UpdateEventDtoRequest;
 import ru.practicum.common.exceptions.RequestNotValidException;
 import ru.practicum.common.model.FromSizeRequest;
-import ru.practicum.common.util.RequestParams;
+import ru.practicum.common.util.RequestParamsForEvents;
 import ru.practicum.common.util.State;
 
 import javax.validation.Valid;
@@ -47,7 +47,7 @@ public class AdmEventController {
             @RequestParam(defaultValue = "10") Integer size) {
         Sort sort = Sort.by("id").ascending();
         Pageable pageable = FromSizeRequest.of(from, size, sort);
-        RequestParams params = new RequestParams(users, states, categories, rangeStart, rangeEnd);
+        RequestParamsForEvents params = new RequestParamsForEvents(users, states, categories, rangeStart, rangeEnd);
         log.info("Get events by params: {}", params);
         return service.getEvents(params, pageable);
     }

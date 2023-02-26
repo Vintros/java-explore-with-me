@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class RequestParams {
+public class RequestParamsForEvents {
 
     private final List<Long> users;
     private final List<State> states;
