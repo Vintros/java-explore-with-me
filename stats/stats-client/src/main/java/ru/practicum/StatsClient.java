@@ -1,6 +1,7 @@
 package ru.practicum;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -19,10 +20,9 @@ import java.util.Map;
 public class StatsClient {
 
     private final RestTemplate rest;
-    private final String url = "http://stats-server:9090";
 
     @Autowired
-    public StatsClient(RestTemplateBuilder builder) {
+    public StatsClient(@Value("${stats-server-url}") String url, RestTemplateBuilder builder) {
 
         this.rest = builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(url))

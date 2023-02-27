@@ -8,6 +8,7 @@ import ru.practicum.common.model.User;
 import ru.practicum.common.util.State;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -51,6 +52,8 @@ public class EventFullDto {
 
     private Long views;
 
+    private List<CommentDto> comments;
+
 
     public static class EventFullDtoBuilder {
 
@@ -75,7 +78,6 @@ public class EventFullDto {
             this.location.lon = location.getLon();
             return this;
         }
-
     }
 
     @Data

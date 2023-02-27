@@ -1,5 +1,6 @@
 package ru.practicum.common.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -10,6 +11,7 @@ import ru.practicum.common.util.State;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +82,10 @@ public class Event {
 
     @Transient
     private Long views;
+
+    @OneToMany(mappedBy = "event")
+    @JsonBackReference
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

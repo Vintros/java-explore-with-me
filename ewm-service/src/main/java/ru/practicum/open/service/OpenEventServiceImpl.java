@@ -13,8 +13,10 @@ import ru.practicum.common.dto.EventShortDto;
 import ru.practicum.common.exceptions.EntityNotFoundException;
 import ru.practicum.common.exceptions.StatsClientResponseException;
 import ru.practicum.common.mapper.EventMapper;
+import ru.practicum.common.model.Comment;
 import ru.practicum.common.model.Event;
 import ru.practicum.common.model.QEvent;
+import ru.practicum.common.util.StateComment;
 import ru.practicum.common.util.StateRequest;
 import ru.practicum.dto.EventRequestParams;
 import ru.practicum.dto.RequestHitDto;
@@ -45,6 +47,7 @@ public class OpenEventServiceImpl implements OpenEventService {
         if (!event.getState().equals(PUBLISHED)) {
             throw new EntityNotFoundException("Event not found");
         }
+        event.setComments(filterComments(event.getComments()));
         ResponseEntity<Object> stats = statsClient.getStats(
                 event.getCreatedOn().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
@@ -59,6 +62,7 @@ public class OpenEventServiceImpl implements OpenEventService {
         saveHit(request);
         return mapper.convertToEventFullDto(event);
     }
+
 
     @Override
     public List<EventShortDto> getEvents(EventRequestParams params, HttpServletRequest request) {
@@ -183,5 +187,11 @@ public class OpenEventServiceImpl implements OpenEventService {
                 request.getRemoteAddr(),
                 LocalDateTime.now());
         statsClient.saveHit(requestHitDto);
+    }
+
+    private List<Comment> filterComments(List<Comment> comments) {
+        return comments.stream()
+                .filter(c -> c.getState().equals(StateComment.PUBLISHED))
+                .collect(Collectors.toList());
     }
 }
